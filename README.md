@@ -1,10 +1,32 @@
 # Invoice
 
+This project was forked from [Angular In Action Chapter 9](https://github.com/angular-in-action/invoice) and updated to use Angular version 9.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
+
+## Setup
+
+In the project directory, run `npm install` from a terminal to download dependencies. After downloading is complete, run `ng v` to view the Angular version for the project. The output should be similar to the following screenshot.
+
+<figure>
+  <img src="img/angular-version.png" alt="Angular Version"/>
+  <figcaption>Figure 1. Angular Version</figcaption>
+</figure><br>
+
+The application relies on json-server as a test API. To run the server, execute `npm run api` from a terminal. The output for json-server should be similar to the next figure.
+
+<figure>
+  <img src="img/json-server.png" alt="JSON Server"/>
+  <figcaption>Figure 2. JSON Server</figcaption>
+</figure><br>
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Shutdown
+
+To stop the application and the API, press Ctrl + C in the terminals where the processes were started.
 
 ## Code scaffolding
 
