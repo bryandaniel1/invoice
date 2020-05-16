@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InvoicesService, CustomersService } from '@aia/services';
+import { InvoicesService, CustomersService } from './services'
 
 @Component({
   selector: 'app-root',
@@ -10,4 +10,4 @@ import { InvoicesService, CustomersService } from '@aia/services';
     InvoicesService
   ]
 })
-export class AppComponent { }
+export class AppComponent {}

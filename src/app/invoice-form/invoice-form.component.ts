@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { TdLoadingService, TdDialogService } from '@covalent/core';
+import { TdLoadingService } from '@covalent/core/loading';
+import { TdDialogService } from '@covalent/core/dialogs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InvoicesService, Invoice, CustomersService, Customer } from '@aia/services';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/combineLatest';
+import { InvoicesService, Invoice, CustomersService, Customer } from '../services';
+import { combineLatest } from 'rxjs';
+import { map } from "rxjs/operators";
 import { HoursValidator } from '../validators/hours.validator';
 
+/**
+ * Provides a form for adding and editing invoice data.
+ */
 @Component({
   selector: 'app-invoice-form',
   templateUrl: './invoice-form.component.html',
@@ -19,6 +23,17 @@ export class InvoiceFormComponent implements OnInit {
   customers: Customer[];
   total = 0;
 
+  /**
+   * Sets the dependencies and builds the invoice form.
+   * 
+   * @param loadingService the loading service
+   * @param invoicesService the invoices service
+   * @param router the router
+   * @param dialogService the dialog service
+   * @param customersService the customers service
+   * @param formBuilder the FormBuilder object
+   * @param route the ActivatedRoute object
+   */
   constructor(
     private loadingService: TdLoadingService,
     private invoicesService: InvoicesService,
@@ -28,18 +43,21 @@ export class InvoiceFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute) {
 
-      this.invoiceForm = this.formBuilder.group({
-        id: [''],
-        service: ['', Validators.required],
-        customerId: ['', Validators.required],
-        rate: ['', Validators.required],
-        hours: ['', [Validators.required, HoursValidator]],
-        date: ['', Validators.required],
-        paid: ['']
-      });
+    this.invoiceForm = this.formBuilder.group({
+      id: [''],
+      service: ['', Validators.required],
+      customerId: ['', Validators.required],
+      rate: ['', Validators.required],
+      hours: ['', [Validators.required, HoursValidator]],
+      date: ['', Validators.required],
+      paid: ['']
+    });
 
-    }
+  }
 
+  /**
+   * Performed after construction to collect customer and invoice data.
+   */
   ngOnInit() {
     this.loadingService.register('invoice');
     this.loadingService.register('customers');
@@ -49,7 +67,7 @@ export class InvoiceFormComponent implements OnInit {
       this.loadingService.resolve('customers');
     });
 
-    this.route.params.map((params: Params) => params.invoiceId).subscribe(invoiceId => {
+    this.route.params.pipe(map((params: Params) => params.invoiceId)).subscribe(invoiceId => {
       if (invoiceId) {
         this.invoicesService.get<Invoice>(invoiceId).subscribe(invoice => {
           this.invoiceForm.setValue(invoice);
@@ -62,7 +80,7 @@ export class InvoiceFormComponent implements OnInit {
       }
     });
 
-    Observable.combineLatest(
+    combineLatest(
       this.invoiceForm.get('rate').valueChanges,
       this.invoiceForm.get('hours').valueChanges
     ).subscribe(([rate = 0, hours = 0]) => {
@@ -70,6 +88,9 @@ export class InvoiceFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Saves the invoice data.
+   */
   save() {
     if (this.invoice.id) {
       this.invoicesService.update<Invoice>(this.invoice.id, this.invoiceForm.value).subscribe(response => {
@@ -82,6 +103,9 @@ export class InvoiceFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Deletes the invoice after confirmation.
+   */
   delete() {
     this.dialogService.openConfirm({
       message: 'Are you sure you want to delete this invoice?',
@@ -99,6 +123,9 @@ export class InvoiceFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Returns to the previous view without saving.
+   */
   cancel() {
     if (this.invoice.id) {
       this.router.navigate(['/invoices', this.invoice.id]);
@@ -107,6 +134,11 @@ export class InvoiceFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Navigates to the invoice detail view.
+   * 
+   * @param id the invoice ID
+   */
   private viewInvoice(id: number) {
     this.router.navigate(['/invoices', id]);
   }

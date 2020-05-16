@@ -1,37 +1,47 @@
 <div *tdLoading="'invoice'">
-  <form *ngIf="invoice" [formGroup]="invoiceForm" (ngSubmit)="save()">
-    <md-card>
-      <md-card-header>Edit Invoice</md-card-header>
-      <md-card-content>
-        <md-input-container>
-          <input name="service" mdInput type="text" placeholder="Service" formControlName="service">
-        </md-input-container>
-        <md-input-container>
-          <input mdInput [mdDatepicker]="picker" placeholder="Choose a date" formControlName="date">
-          <button type="button" mdSuffix [mdDatepickerToggle]="picker"></button>
-        </md-input-container>
-        <md-datepicker #picker></md-datepicker>
-        <app-hours-control formControlName="hours"></app-hours-control>
-        <md-input-container>
-          <input name="rate" mdInput type="number" placeholder="Rate" formControlName="rate">
-        </md-input-container>
-        <div>
-          <md-select name="customerId" placeholder="Customer" formControlName="customerId">
-            <md-option [value]="customer.id" *ngFor="let customer of customers">{{customer?.name}}</md-option>
-          </md-select>
-        </div>
-        <div class="toggler">
-          <md-slide-toggle formControlName="paid">Paid</md-slide-toggle>
-        </div>
-        <div class="total">
-          Total: {{total | currency:'USD':true:'.2'}}
-        </div>
-      </md-card-content>
-      <md-card-actions>
-        <button type="button" md-button (click)="delete()" *ngIf="invoice.id">Delete</button>
-        <button type="button" md-button (click)="cancel()">Cancel</button>
-        <button type="submit" md-raised-button color="primary" [disabled]="invoiceForm.invalid">Save</button>
-      </md-card-actions>
-    </md-card>
-  </form>
+    <form *ngIf="invoice" [formGroup]="invoiceForm" (ngSubmit)="save()">
+        <mat-card>
+            <mat-card-header>Edit Invoice</mat-card-header>
+            <mat-card-content>
+                <mat-form-field>
+                    <input name="service" matInput type="text" placeholder="Service" formControlName="service">
+                    <mat-error *ngIf="invoiceForm.get('service').touched && invoiceForm.get('service').invalid">
+                        Service is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-error *ngIf="invoiceForm.get('date').touched && invoiceForm.get('date').invalid">
+                        Date is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-datepicker #picker></mat-datepicker>
+                <app-hours-control formControlName="hours"></app-hours-control>
+                <mat-form-field>
+                    <input name="rate" matInput type="number" placeholder="Rate" formControlName="rate">
+                    <mat-error *ngIf="invoiceForm.get('rate').touched && invoiceForm.get('rate').invalid">
+                        Hourly rate is required
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <mat-select name="customerId" placeholder="Customer" formControlName="customerId">
+                        <mat-option [value]="customer.id" *ngFor="let customer of customers">{{customer?.name}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+                <div class="toggler">
+                    <mat-slide-toggle formControlName="paid">Paid</mat-slide-toggle>
+                </div>
+                <div class="total">
+                    Total: {{total | currency:'USD':true:'.2'}}
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="button" mat-button (click)="delete()" *ngIf="invoice.id">Delete</button>
+                <button type="button" mat-button (click)="cancel()">Cancel</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="invoiceForm.invalid">Save</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
 </div>

@@ -1,4 +1,4 @@
-import { Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 interface Query {
@@ -8,7 +8,7 @@ interface Query {
   embed?: string;
   expand?: string;
 }
-
+@Injectable()
 export class RestService {
   base: string = 'http://localhost:3000';
   resource: string = '/';

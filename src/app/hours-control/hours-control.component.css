@@ -2,9 +2,11 @@
     width: 100%;
     display: block;
 }
-md-input-container {
+
+.mat-form-field {
     width: 100%;
 }
+
 button {
     padding: 0;
     min-width: 25%;

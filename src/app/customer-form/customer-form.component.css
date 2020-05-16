@@ -1,7 +1,8 @@
 :host {
-  padding: 20px;
+    padding: 20px;
 }
 
-input, md-input-container {
-  width: 100%;
+input,
+mat-form-field {
+    width: 100%;
 }

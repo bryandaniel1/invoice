@@ -1,6 +1,6 @@
 export class Customer {
-  email: string;
-  id: number;
-  name: string;
-  phone: string;
+    email: string;
+    id: number;
+    name: string;
+    phone: string;
 }

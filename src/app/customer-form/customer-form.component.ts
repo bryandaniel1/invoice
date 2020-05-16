@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, NgControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { TdLoadingService, TdDialogService } from '@covalent/core';
-import { CustomersService, Customer } from '@aia/services';
+import { TdLoadingService } from '@covalent/core/loading';
+import { TdDialogService } from '@covalent/core/dialogs';
+import { CustomersService, Customer } from '../services';
+import { map } from "rxjs/operators";
 
+/**
+ * Provides a form for adding and editing customer data.
+ */
 @Component({
   selector: 'app-customer-form',
   templateUrl: './customer-form.component.html',
@@ -12,6 +17,15 @@ import { CustomersService, Customer } from '@aia/services';
 export class CustomerFormComponent implements OnInit {
   customer: Customer;
 
+  /**
+   * Sets the dependencies.
+   * 
+   * @param loadingService the loading service
+   * @param router the router
+   * @param dialogService the dialog service
+   * @param customersService the customers service
+   * @param route the ActivatedRoute object
+   */
   constructor(
     private loadingService: TdLoadingService,
     private router: Router,
@@ -19,9 +33,12 @@ export class CustomerFormComponent implements OnInit {
     private customersService: CustomersService,
     private route: ActivatedRoute) { }
 
+  /**
+   * Performed after construction to fetch customer data if it exists.
+   */
   ngOnInit() {
     this.loadingService.register('customer');
-    this.route.params.map((params: Params) => params.customerId).subscribe(customerId => {
+    this.route.params.pipe(map((params: Params) => params.customerId)).subscribe(customerId => {
       if (customerId) {
         this.customersService.get<Customer>(customerId).subscribe(customer => {
           this.customer = customer;
@@ -34,6 +51,9 @@ export class CustomerFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Saves customer data.
+   */
   save() {
     if (this.customer.id) {
       this.customersService.update<Customer>(this.customer.id, this.customer).subscribe(response => {
@@ -46,6 +66,9 @@ export class CustomerFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Deletes a customer.
+   */
   delete() {
     this.dialogService.openConfirm({
       message: 'Are you sure you want to delete this customer?',
@@ -63,6 +86,9 @@ export class CustomerFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Returns to the previous view without saving.
+   */
   cancel() {
     if (this.customer.id) {
       this.router.navigate(['/customers', this.customer.id]);
@@ -71,6 +97,11 @@ export class CustomerFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Navigates to the customer detail view.
+   * 
+   * @param id the customer ID
+   */
   private viewCustomer(id: number) {
     this.router.navigate(['/customers', id]);
   }
