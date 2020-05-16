@@ -19,6 +19,12 @@
       "phone": "(615)958-5826"
     },
     {
+      "id": 4,
+      "name": "Jayo",
+      "email": "gshields3@51.la",
+      "phone": "(374)873-7514"
+    },
+    {
       "id": 5,
       "name": "Brainlounge",
       "email": "llibbe4@shop-pro.jp",
@@ -121,12 +127,12 @@
     },
     {
       "id": 4,
-      "service": "Publications",
       "customerId": 8,
+      "date": "2016-12-08T05:48:44Z",
+      "service": "Publications",
+      "hours": 69,
       "rate": 75,
-      "hours": 69.25,
-      "date": "2016-12-03T05:00:00.000Z",
-      "paid": true
+      "paid": false
     },
     {
       "id": 5,
@@ -426,6 +432,15 @@
       "paid": true
     },
     {
+      "id": 40,
+      "customerId": 4,
+      "date": "2017-01-27T05:19:29Z",
+      "service": "ADP HRB",
+      "hours": 68,
+      "rate": 75,
+      "paid": true
+    },
+    {
       "id": 41,
       "customerId": 11,
       "date": "2016-12-16T17:09:14Z",
@@ -469,6 +484,15 @@
       "hours": 82,
       "rate": 25,
       "paid": true
+    },
+    {
+      "id": 46,
+      "customerId": 4,
+      "date": "2017-01-31T14:08:04Z",
+      "service": "High Performance Computing",
+      "hours": 61,
+      "rate": 75,
+      "paid": false
     },
     {
       "id": 47,
