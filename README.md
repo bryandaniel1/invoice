@@ -2,7 +2,7 @@
 
 This project was forked from [Angular In Action Chapter 9](https://github.com/angular-in-action/invoice) and updated to use Angular version 9.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
 
 ## Setup
 
