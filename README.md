@@ -12,6 +12,7 @@ In the project directory, run `npm install` from a terminal to download dependen
   <img src="img/angular-version.png" alt="Angular Version"/>
   <figcaption>Figure 1. Angular Version</figcaption>
 </figure><br>
+<br>
 
 The application relies on json-server as a test API. To run the server, execute `npm run api` from a terminal. The output for json-server should be similar to the next figure.
 
@@ -19,6 +20,7 @@ The application relies on json-server as a test API. To run the server, execute 
   <img src="img/json-server.png" alt="JSON Server"/>
   <figcaption>Figure 2. JSON Server</figcaption>
 </figure><br>
+<br>
 
 ## Development server
 

@@ -145,11 +145,11 @@
     },
     {
       "id": 6,
-      "service": "C-TPAT",
       "customerId": 12,
-      "rate": 100,
-      "hours": 88,
       "date": "2016-09-19T03:16:41Z",
+      "service": "C-TPAT",
+      "hours": 88,
+      "rate": 100,
       "paid": false
     },
     {
